@@ -1,0 +1,61 @@
+package ru.startandroid.retraining;
+
+import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
+import android.util.ArrayMap;
+import android.view.View;
+import android.view.View.OnClickListener;
+import android.widget.Button;
+import android.widget.TextView;
+
+public class MainActivity extends AppCompatActivity implements OnClickListener{
+
+    TextView tvOut;
+    Button btnOk;
+    Button btnCancel;
+
+    /** Called when the activity is first created. */
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity_main);
+
+        // найдем View-элементы
+        tvOut = (TextView) findViewById(R.id.tvOut);
+        btnOk = (Button) findViewById(R.id.btnOk);
+        btnCancel = (Button) findViewById(R.id.btnCancel);
+        tvOut.setText(String.valueOf(savedInstanceState));
+
+        Bundle args=new Bundle();
+        args.putInt("OK", R.id.btnOk);
+       // tvOut.setText(String.valueOf(args.get("OK")));
+       // tvOut.setText(String.valueOf(args.toString())); ///Bundel[{ok=21312677722}]
+        android.util.ArrayMap<String, String> arrayMap = new android.util.ArrayMap<String, String>(16);
+        arrayMap.put("Кот", "Васька");
+        arrayMap.put("Пёс", "Барбос");
+        String value = arrayMap.get("Кот");
+        tvOut.setText(String.valueOf(value));////show Васька
+
+
+
+        // присваиваем обработчик кнопкам
+       btnOk.setOnClickListener(this);
+       btnCancel.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        // по id определеяем кнопку, вызвавшую этот обработчик
+        switch (v.getId()) {
+            case R.id.btnOk:
+                // кнопка ОК
+                tvOut.setText("Нажата кнопка ОК");
+                break;
+            case R.id.btnCancel:
+                // кнопка Cancel
+                tvOut.setText("Нажата кнопка Cancel");
+                break;
+        }
+    }
+
+}
